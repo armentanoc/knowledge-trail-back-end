@@ -28,7 +28,7 @@ knowledge-trail-system
 - **Senha:** `postgres`
 - **Porta:** 5432 
 
-Obs.: essas são as configurações definidas no arquivo `src/main/resources/application.yml`)
+Obs.: essas são as configurações definidas no arquivo `src/main/resources/application.yml`
 
 Certifique-se de que o PostgreSQL esteja rodando corretamente em sua máquina local para que o backend se conecte ao banco de dados.
 
@@ -59,3 +59,10 @@ Quando o sistema for inicializado, serão criadas automaticamente credenciais de
 
 - Usuário: `admin`
 - Senha: `admin`
+
+## 👔 Credenciais de Funcionário 
+
+Também serão criadas automaticamente credenciais para um funcionário, se não existirem. Você pode acessar essas funcionalidades realizando login com o perfil:
+
+- Usuário: `employee`
+- Senha: `employee`
