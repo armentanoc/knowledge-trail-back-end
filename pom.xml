@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.ucsal</groupId>
-	<artifactId>locations-management-system</artifactId>
+	<artifactId>knowledge-trail-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>locations-management-api</name>
-	<description>API para Gerenciamento de Reserva de Locais</description>
+	<description>API para Gerenciamento de Trilhas de Conhecimento</description>
 	<url/>
 	<licenses>
 		<license/>

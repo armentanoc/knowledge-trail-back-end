@@ -3,12 +3,12 @@ server:
 
 spring:
   application:
-    name: locations-management-api
+    name: knowledge-trail-api
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/locations-management-system
+    url: jdbc:postgresql://localhost:5432/knowledge-trail-system
     username: postgres
     password: postgres      
   jpa:
-    hibernate.ddl-auto: create-drop
+    hibernate.ddl-auto: update
     show-sql: true 
