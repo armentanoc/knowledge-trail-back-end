@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.ucsal.domain.users.*;
 import br.ucsal.dto.users.*;
+import br.ucsal.infrastructure.IEmployeeRepository;
 import br.ucsal.infrastructure.IUserRepository;
 import br.ucsal.service.interfaces.IEncryptionService;
 import br.ucsal.service.interfaces.IUserService;
@@ -20,6 +21,9 @@ public class UserService implements IUserService {
 
 	@Autowired
 	private IUserRepository repository;
+
+	@Autowired
+	private IEmployeeRepository employeeRepository;
 
 	@Autowired
 	private IEncryptionService encryptor;
@@ -42,6 +46,10 @@ public class UserService implements IUserService {
 
 		try {
 			repository.save(user);
+			if(user.getRole().equals(Role.EMPLOYEE)) {
+				var employee = new Employee(user);
+				employeeRepository.save(employee);
+			}
 			response = new AddUserResponse(true, "Usuário criado com sucesso", user.getId());
 		} catch (Exception ex) {
 			if (ex.getMessage().contains("duplicar valor da chave") || ex.getMessage().contains("duplicated key")) {

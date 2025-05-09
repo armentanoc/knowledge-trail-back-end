@@ -25,10 +25,7 @@ public class UserController {
 
 	@Autowired
 	private IUserService userService;
-
-	// @Autowired
-	// private IRequestService requestService;
-
+	
 	@GetMapping("/{id}")
 	@Operation(summary = "Get user by ID", description = "Retrieve a user by their unique ID")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
@@ -46,13 +43,6 @@ public class UserController {
 		var response = userService.getAll();
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-
-	// @GetMapping("/{id}/requests")
-	// @Operation(summary = "Get requests associated to this specific user", description = "Retrieve all request associated with this specific user")
-	// public ResponseEntity<List<RequestResponse>> getAllRequestsByUser(@PathVariable Long id) {
-	// 	var response = requestService.getAllByUserId(id);
-	// 	return ResponseEntity.status(HttpStatus.OK).body(response);
-	// }
 
 	@PostMapping
 	@Operation(summary = "Create a user", description = "Create a user passing all user information")

@@ -29,6 +29,10 @@ public class Employee extends BaseEntity {
 		// default for JPA
 	}
 
+    public Employee(User user) {
+		this.user = user;
+	}
+
     public User getUser() {
         return user;
     }
