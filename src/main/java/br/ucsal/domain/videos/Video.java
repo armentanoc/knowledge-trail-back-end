@@ -1,5 +1,8 @@
 package br.ucsal.domain.videos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.ucsal.domain.BaseEntity;
 import br.ucsal.domain.trails.Trail;
 import jakarta.persistence.Entity;
@@ -11,10 +14,16 @@ import jakarta.persistence.Table;
 public class Video extends BaseEntity {
     private String title;
     private String url;
-    private int position;
 
     @ManyToOne
+    @JsonBackReference
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Trail trail;
+
+    public Video(String title, String url) {
+        this.title = title;
+        this.url = url;
+    }
 
     protected Video() {
 		// default for JPA
@@ -36,14 +45,6 @@ public class Video extends BaseEntity {
     public void setUrl(String url) {
         if (url != null)
             this.url = url;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
     }
 
     public Trail getTrail() {

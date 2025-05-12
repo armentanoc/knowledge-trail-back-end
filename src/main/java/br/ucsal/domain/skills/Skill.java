@@ -3,6 +3,9 @@ package br.ucsal.domain.skills;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import br.ucsal.domain.BaseEntity;
 import br.ucsal.domain.trails.Trail;
 import jakarta.persistence.CascadeType;
@@ -18,7 +21,14 @@ public class Skill extends BaseEntity {
     private String description;
 
     @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Trail> trails = new ArrayList<>();
+
+    public Skill(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 
     protected Skill() {
 		// default for JPA
