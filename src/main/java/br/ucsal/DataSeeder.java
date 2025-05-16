@@ -94,9 +94,14 @@ public class DataSeeder implements CommandLineRunner {
                     "https://www.youtube.com/watch?v=RRubcjpTkks");
             Video video2 = new Video("Java Programming for Beginners – Full Course",
                     "https://www.youtube.com/watch?v=A74TOX803D0");
+            Video video3 = new Video("Curso de Java #01 - História do Java - Gustavo Guanabara",
+                    "https://www.youtube.com/watch?v=sTX0UEplF54&list=PLHz_AreHm4dkI2ZdjTwZA4mPMxWTfNSpR");
+            Video video4 = new Video("Curso de PROGRAMAÇÃO JAVA para INICIANTES | Tudo que você precisa para aprender Java",
+                    "https://www.youtube.com/watch?v=nODe5lFcGpg");
+
             Trail trail = new Trail("Trilha Java Beginner Level", skill);
 
-            trail.setVideos(List.of(video1, video2));
+            trail.setVideos(List.of(video1, video2, video3, video4));
             video1.setTrail(trail);
             video2.setTrail(trail);
             trailRepository.save(trail);
@@ -104,13 +109,17 @@ public class DataSeeder implements CommandLineRunner {
             Skill skill2 = new Skill("Java II", "Mid level of proficiency");
             skillRepository.save(skill2);
 
-            Video video3 = new Video("Intermediate Java Tutorial - 1 - Common String Methods",
+            Video video5 = new Video("Intermediate Java Tutorial - 1 - Common String Methods",
                     "https://www.youtube.com/watch?v=vW53w7me4AE&list=PL27BCE863B6A864E3");
-            Video video4 = new Video("Intermediate Java Tutorial - 2 - Some More String Methods",
+            Video video6 = new Video("Intermediate Java Tutorial - 2 - Some More String Methods",
                     "https://www.youtube.com/watch?v=Qi09pWsc7nA&list=PL27BCE863B6A864E3&index=2");
+            Video video7 = new Video("#2 JAVA STATIC - LOGICA DE PROGRAMAÇÃO INTERMEDIÁRIO | #JAVA #POO",
+                    "https://www.youtube.com/watch?v=aCo7vwmMYXk&list=PLRFzgeDvajp0pEe2MT222FPv0ENmmK6bR");
+            Video video8 = new Video("Java Intermediário 2 - Cadastro de pesquisa com Menu",
+                    "https://www.youtube.com/watch?v=Z1-R0l3xzv0&list=PLbi7I1f_PRBkIY1R740H1CkSH1nN28QGn");
             Trail trail2 = new Trail("Trilha Java Mid Level", skill2);
 
-            trail2.setVideos(List.of(video3, video4));
+            trail2.setVideos(List.of(video5, video6, video7, video8));
             video3.setTrail(trail2);
             video4.setTrail(trail2);
             trailRepository.save(trail2);
