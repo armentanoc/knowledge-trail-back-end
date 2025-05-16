@@ -75,4 +75,9 @@ public class Trail extends BaseEntity {
         }
         return false;
     }   
+
+    public Long getSkillId() {
+    return skill != null ? skill.getId() : null;
+    }
+
 }
