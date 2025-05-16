@@ -104,6 +104,8 @@ public class DataSeeder implements CommandLineRunner {
             trail.setVideos(List.of(video1, video2, video3, video4));
             video1.setTrail(trail);
             video2.setTrail(trail);
+            video3.setTrail(trail);
+            video4.setTrail(trail);
             trailRepository.save(trail);
 
             Skill skill2 = new Skill("Java II", "Mid level of proficiency");
@@ -120,8 +122,10 @@ public class DataSeeder implements CommandLineRunner {
             Trail trail2 = new Trail("Trilha Java Mid Level", skill2);
 
             trail2.setVideos(List.of(video5, video6, video7, video8));
-            video3.setTrail(trail2);
-            video4.setTrail(trail2);
+            video5.setTrail(trail2);
+            video6.setTrail(trail2);
+            video7.setTrail(trail2);
+            video8.setTrail(trail2);
             trailRepository.save(trail2);
 
             System.out.println("Default trails created.");
