@@ -107,6 +107,7 @@ public class TrailService implements ITrailService {
 		repository.deleteById(trailId);
 	}
 
+	@Override
 	public Trail getOrThrow(Long trailId) {
 		return repository.findById(trailId)
 				.orElseThrow(() -> new EntityNotFoundException("Trail not found"));
@@ -122,4 +123,5 @@ public class TrailService implements ITrailService {
 
 		return repository.save(trail);
 	}
+
 }

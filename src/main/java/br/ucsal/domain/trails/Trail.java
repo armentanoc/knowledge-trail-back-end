@@ -68,6 +68,14 @@ public class Trail extends BaseEntity {
         return videos;
     }
 
+    public List<Long> getVideoIds() {
+        List<Long> ids = new ArrayList<>();
+        for (Video video : videos) {
+            ids.add(video.getId());
+        }
+        return ids;
+    }   
+
     public boolean setVideos(List<Video> videos) {
         if(videos != null)  {
             this.videos = videos;

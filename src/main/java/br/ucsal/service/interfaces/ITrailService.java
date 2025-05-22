@@ -24,4 +24,5 @@ public interface ITrailService {
     Trail replaceVideos(Long trailId, List<VideoMinimal> videos);
 
     void delete(Long trailId);
+    Trail getOrThrow(Long trailId);
 }

@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.ucsal.domain.BaseEntity;
-import br.ucsal.domain.users.Employee;
+import br.ucsal.domain.users.*;
+import br.ucsal.domain.trails.*;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -14,6 +15,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "trail_progress")
 public class TrailProgress extends BaseEntity {
+
     @ManyToOne
     private Employee employee;
 
@@ -26,26 +28,8 @@ public class TrailProgress extends BaseEntity {
     private boolean completed;
     private LocalDate completionDate;
 
-    protected TrailProgress() {
-		// default for JPA
-	}
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        if (employee != null)
-            this.employee = employee;
-    }
-
-    public Trail getTrail() {
-        return trail;
-    }
-
-    public void setTrail(Trail trail) {
-        if (trail != null)
-            this.trail = trail;
+    public TrailProgress() {
+        // default for JPA
     }
 
     public Set<Long> getWatchedVideoIds() {
@@ -53,8 +37,7 @@ public class TrailProgress extends BaseEntity {
     }
 
     public void setWatchedVideoIds(Set<Long> watchedVideos) {
-        if (watchedVideos != null)
-            this.watchedVideos = watchedVideos;
+        this.watchedVideos = watchedVideos;
     }
 
     public boolean isCompleted() {
@@ -70,8 +53,18 @@ public class TrailProgress extends BaseEntity {
     }
 
     public void setCompletionDate(LocalDate completionDate) {
-        if (completionDate != null)
-            this.completionDate = completionDate;
+        this.completionDate = completionDate;
     }
 
+    public void setEmployee(Employee employee) {
+        if (employee != null) {
+            this.employee = employee;
+        }
+    }
+
+    public void setTrail(Trail trail) {
+        if (trail != null) {
+            this.trail = trail;
+        }
+    }
 }
