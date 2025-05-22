@@ -22,4 +22,10 @@ public class EmployeeService implements IEmployeeService {
 				.orElseThrow(() -> new EntityNotFoundException("Employee not found"));
 	}
 
+	@Override
+	public Employee getByUserIdOrThrow(Long userId) {
+		return repository.findByUserId(userId)
+				.orElseThrow(() -> new EntityNotFoundException("Employee not found"));
+	}
+
 }

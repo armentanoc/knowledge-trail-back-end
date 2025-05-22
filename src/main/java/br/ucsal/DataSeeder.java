@@ -21,6 +21,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class DataSeeder implements CommandLineRunner {
@@ -44,6 +45,7 @@ public class DataSeeder implements CommandLineRunner {
         private ITrailProgressRepository trailProgressRepository;
 
         @Override
+        @Transactional
         public void run(String... args) throws Exception {
                 createDefaultAdminIfNotExists();
                 createDefaultEmployeeIfNotExists();
@@ -211,39 +213,43 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         private void mockTrailProgressForDefaultEmployee() {
-                Employee employee = employeeRepository.findByUserUsername("employee")
-                    .orElseThrow(() -> new RuntimeException("Default employee not found"));
-            
-                Trail beginnerTrail = trailRepository.findByTitleContainingIgnoreCase("Java Beginner")
-                    .orElseThrow(() -> new RuntimeException("Java Beginner trail not found"));
-            
-                Trail midTrail = trailRepository.findByTitleContainingIgnoreCase("Java Mid")
-                    .orElseThrow(() -> new RuntimeException("Java Mid trail not found"));
-            
-                TrailProgress beginnerProgress = new TrailProgress();
-                beginnerProgress.setEmployee(employee);
-                beginnerProgress.setTrail(beginnerTrail);
-                beginnerProgress.setWatchedVideoIds(Set.of(
-                    beginnerTrail.getVideos().get(0).getId(),
-                    beginnerTrail.getVideos().get(1).getId()
-                ));
-                beginnerProgress.setCompleted(false);
-                beginnerProgress.setCompletionDate(null);
-            
-                TrailProgress midProgress = new TrailProgress();
-                midProgress.setEmployee(employee);
-                midProgress.setTrail(midTrail);
-                Set<Long> allVideoIds = midTrail.getVideos().stream()
-                    .map(Video::getId)
-                    .collect(java.util.stream.Collectors.toSet());
-                midProgress.setWatchedVideoIds(allVideoIds);
-                midProgress.setCompleted(true);
-                midProgress.setCompletionDate(LocalDate.now());
-            
-                trailProgressRepository.save(beginnerProgress);
-                trailProgressRepository.save(midProgress);
-            
-                System.out.println("Mocked trail progress for default employee.");
-            }
-            
+                if (trailProgressRepository.findAll().isEmpty()) {
+                        Employee employee = employeeRepository.findByUserUsername("employee")
+                                        .orElseThrow(() -> new RuntimeException("Default employee not found"));
+
+                        Trail beginnerTrail = trailRepository.findByTitleContainingIgnoreCase("Java Beginner")
+                                        .orElseThrow(() -> new RuntimeException("Java Beginner trail not found"));
+
+                        Trail midTrail = trailRepository.findByTitleContainingIgnoreCase("Java Mid")
+                                        .orElseThrow(() -> new RuntimeException("Java Mid trail not found"));
+
+                        TrailProgress beginnerProgress = new TrailProgress();
+                        beginnerProgress.setEmployee(employee);
+                        beginnerProgress.setTrail(beginnerTrail);
+                        beginnerProgress.setWatchedVideoIds(Set.of(
+                                        beginnerTrail.getVideos().get(0).getId(),
+                                        beginnerTrail.getVideos().get(1).getId()));
+                        beginnerProgress.setCompleted(false);
+                        beginnerProgress.setCompletionDate(null);
+
+                        TrailProgress midProgress = new TrailProgress();
+                        midProgress.setEmployee(employee);
+                        midProgress.setTrail(midTrail);
+
+                        Set<Long> allVideoIds = midTrail.getVideos().stream()
+                                        .map(Video::getId)
+                                        .collect(java.util.stream.Collectors.toSet());
+
+                        midProgress.setWatchedVideoIds(allVideoIds);
+                        midProgress.setCompleted(true);
+                        midProgress.setCompletionDate(LocalDate.now());
+
+                        trailProgressRepository.save(beginnerProgress);
+                        trailProgressRepository.save(midProgress);
+
+                        System.out.println("Default trail progress created for default employee.");
+                } else {
+                        System.out.println("Default trail progress already exists.");
+                }
+        }
 }

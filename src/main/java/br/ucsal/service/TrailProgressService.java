@@ -37,8 +37,8 @@ public class TrailProgressService implements ITrailProgressService {
 
     @Override
     @Transactional
-    public boolean watchVideo(Long employeeId, Long trailId, Long videoId) {
-        Employee employee = employeeService.getOrThrow(employeeId);
+    public boolean watchVideo(Long userId, Long trailId, Long videoId) {
+        Employee employee = employeeService.getByUserIdOrThrow(userId); 
         Trail trail = trailService.getOrThrow(trailId);
         TrailProgress progress = createOrUpdateProgress(employee, trail);
         if (!progress.getWatchedVideoIds().contains(videoId)) {
@@ -52,8 +52,8 @@ public class TrailProgressService implements ITrailProgressService {
 
     @Override
     @Transactional
-    public boolean unwatchVideo(Long employeeId, Long trailId, Long videoId) {
-        Employee employee = employeeService.getOrThrow(employeeId);
+    public boolean unwatchVideo(Long userId, Long trailId, Long videoId) {
+        Employee employee = employeeService.getByUserIdOrThrow(userId); 
         Trail trail = trailService.getOrThrow(trailId);
         TrailProgress progress = repository.findByEmployeeAndTrail(employee, trail)
                 .orElseThrow(() -> new EntityNotFoundException("Progress not found"));
@@ -67,8 +67,8 @@ public class TrailProgressService implements ITrailProgressService {
     }
 
     @Override
-    public Set<Long> getWatchedVideoIds(Long employeeId, Long trailId) {
-        Employee employee = employeeService.getOrThrow(employeeId);
+    public Set<Long> getWatchedVideoIds(Long userId, Long trailId) {
+        Employee employee = employeeService.getByUserIdOrThrow(userId); 
         Trail trail = trailService.getOrThrow(trailId);
         TrailProgress progress = repository.findByEmployeeAndTrail(employee, trail).orElse(null);
 
@@ -80,9 +80,9 @@ public class TrailProgressService implements ITrailProgressService {
     }
 
     @Override
-    public List<SkillMinimal> getCompletedSkillsByEmployeeId(Long employeeId) {
-        employeeService.getOrThrow(employeeId); 
-        return repository.findCompletedSkillsByEmployeeId(employeeId);
+    public List<SkillMinimal> getCompletedSkillsByUserId(Long userId) {
+        var employee = employeeService.getByUserIdOrThrow(userId); 
+        return repository.findCompletedSkillsByEmployeeId(employee.getId());
     }
 
     @Override

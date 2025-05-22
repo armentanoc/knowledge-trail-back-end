@@ -4,4 +4,5 @@ import br.ucsal.domain.users.Employee;
 
 public interface IEmployeeService {
     Employee getOrThrow(Long employeeId);
+    Employee getByUserIdOrThrow(Long userId);
 }

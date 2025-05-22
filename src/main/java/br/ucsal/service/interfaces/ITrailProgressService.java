@@ -7,9 +7,9 @@ import br.ucsal.domain.users.Employee;
 import br.ucsal.dto.skills.SkillMinimal;
 
 public interface ITrailProgressService {
-    boolean watchVideo(Long employeeId, Long trailId, Long videoId);
-    boolean unwatchVideo(Long employeeId, Long trailId, Long videoId);
-    Set<Long> getWatchedVideoIds(Long employeeId, Long trailId);
-    List<SkillMinimal> getCompletedSkillsByEmployeeId(Long employeeId);
+    boolean watchVideo(Long userId, Long trailId, Long videoId);
+    boolean unwatchVideo(Long userId, Long trailId, Long videoId);
+    Set<Long> getWatchedVideoIds(Long userId, Long trailId);
+    List<SkillMinimal> getCompletedSkillsByUserId(Long employeeId);
     List<Employee> getEmployeesBySkillIdWithCompletedTrails(Long skillId);
 }

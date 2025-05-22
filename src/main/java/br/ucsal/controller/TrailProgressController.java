@@ -22,43 +22,43 @@ public class TrailProgressController {
     private ITrailProgressService trailProgressService;
 
     @PostMapping("/watch")
-    @Operation(summary = "Mark a video as watched for a specific trail and employee.")
+    @Operation(summary = "Mark a video as watched for a specific trail and user.")
     public ResponseEntity<String> watchVideo(
-            @RequestParam Long employeeId,
+            @RequestParam Long userId,
             @RequestParam Long trailId,
             @RequestParam Long videoId) {
 
-        boolean success = trailProgressService.watchVideo(employeeId, trailId, videoId);
+        boolean success = trailProgressService.watchVideo(userId, trailId, videoId);
         return ResponseEntity.status(HttpStatus.OK).body(Boolean.toString(success));
     }
 
     @PostMapping("/unwatch")
-    @Operation(summary = "Mark a video as unwatched for a specific trail and employee.")
+    @Operation(summary = "Mark a video as unwatched for a specific trail and user.")
     public ResponseEntity<String> unwatchVideo(
-            @RequestParam Long employeeId,
+            @RequestParam Long userId,
             @RequestParam Long trailId,
             @RequestParam Long videoId) {
 
-        boolean success = trailProgressService.unwatchVideo(employeeId, trailId, videoId);
+        boolean success = trailProgressService.unwatchVideo(userId, trailId, videoId);
         return ResponseEntity.status(HttpStatus.OK).body(Boolean.toString(success));
     }
 
     @GetMapping
-    @Operation(summary = "Retrieve trail progress for an employee.")
+    @Operation(summary = "Retrieve trail progress for a specific user.")
     public ResponseEntity<Set<Long>> getProgress(
-            @RequestParam Long employeeId,
+            @RequestParam Long userId,
             @RequestParam Long trailId) {
 
-        Set<Long> watchedVideoIds = trailProgressService.getWatchedVideoIds(employeeId, trailId);
+        Set<Long> watchedVideoIds = trailProgressService.getWatchedVideoIds(userId, trailId);
         return ResponseEntity.ok(watchedVideoIds);
     }
 
-    @GetMapping("/skils-by-employee")
-    @Operation(summary = "Get all skills validated by an employee (i.e., where trail progress is completed).")
-    public ResponseEntity<List<SkillMinimal>> getCompletedSkillsByEmployee(
-            @RequestParam Long employeeId) {
+    @GetMapping("/skills-by-user")
+    @Operation(summary = "Get all skills validated by a specific user (i.e., where trail progress is completed).")
+    public ResponseEntity<List<SkillMinimal>> getCompletedSkillsByUser(
+            @RequestParam Long userId) {
 
-        List<SkillMinimal> skills = trailProgressService.getCompletedSkillsByEmployeeId(employeeId);
+        List<SkillMinimal> skills = trailProgressService.getCompletedSkillsByUserId(userId);
         return ResponseEntity.ok(skills);
     }
 
