@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
     Page<Employee> findAll(Pageable pageable);  
     Optional<Employee> findByUserId(Long userId);
+    Optional<Employee> findByUserUsername(String username);
 }

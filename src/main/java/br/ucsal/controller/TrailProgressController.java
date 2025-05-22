@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import br.ucsal.dto.skills.SkillMinimal;
+import br.ucsal.domain.users.Employee;
 
 import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping("trail-progress")
@@ -49,4 +52,23 @@ public class TrailProgressController {
         Set<Long> watchedVideoIds = trailProgressService.getWatchedVideoIds(employeeId, trailId);
         return ResponseEntity.ok(watchedVideoIds);
     }
+
+    @GetMapping("/skils-by-employee")
+    @Operation(summary = "Get all skills validated by an employee (i.e., where trail progress is completed).")
+    public ResponseEntity<List<SkillMinimal>> getCompletedSkillsByEmployee(
+            @RequestParam Long employeeId) {
+
+        List<SkillMinimal> skills = trailProgressService.getCompletedSkillsByEmployeeId(employeeId);
+        return ResponseEntity.ok(skills);
+    }
+
+    @GetMapping("/employees-by-skill")
+    @Operation(summary = "Get all employees who have validated a skill through trail completion.")
+    public ResponseEntity<List<Employee>> getEmployeesBySkill(
+            @RequestParam Long skillId) {
+
+        List<Employee> employees = trailProgressService.getEmployeesBySkillIdWithCompletedTrails(skillId);
+        return ResponseEntity.ok(employees);
+    }
+
 }

@@ -5,6 +5,7 @@ import br.ucsal.domain.trails.TrailProgress;
 import br.ucsal.domain.users.Employee;
 import br.ucsal.infrastructure.ITrailProgressRepository;
 import br.ucsal.service.interfaces.IEmployeeService;
+import br.ucsal.service.interfaces.ISkillService;
 import br.ucsal.service.interfaces.ITrailService;
 import br.ucsal.service.interfaces.ITrailProgressService;
 
@@ -14,9 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
+import br.ucsal.dto.skills.SkillMinimal;
 
 @Service
 public class TrailProgressService implements ITrailProgressService {
@@ -29,6 +31,9 @@ public class TrailProgressService implements ITrailProgressService {
 
     @Autowired
     private ITrailService trailService;
+
+    @Autowired
+    private ISkillService skillService;
 
     @Override
     @Transactional
@@ -66,12 +71,24 @@ public class TrailProgressService implements ITrailProgressService {
         Employee employee = employeeService.getOrThrow(employeeId);
         Trail trail = trailService.getOrThrow(trailId);
         TrailProgress progress = repository.findByEmployeeAndTrail(employee, trail).orElse(null);
-    
+
         if (progress == null) {
-           return new HashSet<>(); 
+            return new HashSet<>();
         }
-        
+
         return progress.getWatchedVideoIds();
+    }
+
+    @Override
+    public List<SkillMinimal> getCompletedSkillsByEmployeeId(Long employeeId) {
+        employeeService.getOrThrow(employeeId); 
+        return repository.findCompletedSkillsByEmployeeId(employeeId);
+    }
+
+    @Override
+    public List<Employee> getEmployeesBySkillIdWithCompletedTrails(Long skillId) {
+        skillService.getOrThrow(skillId);
+        return repository.findEmployeesBySkillIdAndCompletedTrue(skillId);
     }
 
     private TrailProgress createOrUpdateProgress(Employee employee, Trail trail) {

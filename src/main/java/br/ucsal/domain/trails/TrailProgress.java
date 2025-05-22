@@ -5,8 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.ucsal.domain.BaseEntity;
-import br.ucsal.domain.users.*;
-import br.ucsal.domain.trails.*;
+import br.ucsal.domain.users.Employee;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;

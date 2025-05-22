@@ -5,7 +5,7 @@
 ## Database PostgreSQL
 
 ```
-locations-management-system
+knowledge-trail-system
 ```
 
 ## Run in Visual Studio Code
